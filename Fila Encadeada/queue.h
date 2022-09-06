@@ -1,6 +1,4 @@
-#include "item_type.h"
-
-const int MAX_ITEMS = 100;
+#include "node_type.h"
 
 class Queue {
     public:
@@ -14,7 +12,6 @@ class Queue {
     ItemType dequeue();
 
     private:
-    int front;
-    int back;
-    ItemType* structure;
+    NodeType* front;
+    NodeType* back;
 };
