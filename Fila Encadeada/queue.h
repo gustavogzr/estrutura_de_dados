@@ -13,5 +13,5 @@ class Queue {
 
     private:
     NodeType* front;
-    NodeType* back;
+    NodeType* rear;
 };

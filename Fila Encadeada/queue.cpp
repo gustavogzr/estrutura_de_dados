@@ -1,29 +1,55 @@
 #include "queue.h"
 #include <iostream>
+#include <cstddef> // Para funcionar o NULL
+#include <new> // Para bad_alloc.
 using namespace std;
 
 Queue::Queue() {
-    front = 0;
-    back = 0;
-    structure = new ItemType[MAX_ITEMS];
+    front = NULL;
+    rear = NULL;
 }
 
 Queue::~Queue() {
-    delete [] structure;
+    NodeType* tempPtr;
+    while (front != NULL)
+    {
+        tempPtr = front;
+        front = front -> next;
+        delete tempPtr;
+    }
+    rear = NULL;
 }
 
 bool Queue::isEmpty() const {
-    return (front == back);
+    return (front == NULL);
 }
 
 bool Queue::isFull() const {
-    return (back-front == MAX_ITEMS);
+    NodeType* location;
+    try
+    {
+        location = new NodeType;
+        delete location;
+        return false;
+    }
+    catch(std::bad_alloc exception)
+    {
+        return true;
+    }
 }
 
-void Queue::enqueue(ItemType item) {
+void Queue::enqueue(ItemType newItem) {
     if (!isFull()) {
-        structure[back % MAX_ITEMS] = item;
-        back++;
+        NodeType* newNode;
+        newNode = new NodeType;
+        newNode -> info = newItem;
+        newNode -> next = NULL;        
+        if (rear == NULL) {
+            front = newNode;
+        } else {
+            rear -> next = newNode;
+        }
+        rear = newNode;
     } else {
         throw "Queue is already full!";
     }
@@ -31,17 +57,25 @@ void Queue::enqueue(ItemType item) {
 
 ItemType Queue::dequeue() {
     if (!isEmpty()) {
-        front++;
-        return structure[(front-1) % MAX_ITEMS];
+        NodeType* tempPtr;
+        tempPtr = front;
+        ItemType item = front -> info;
+        front = front -> next;
+        if (front == NULL)
+            rear = NULL;
+        delete tempPtr;
+        return item;
     } else {
         throw "Queue is empty!";
     }
 }
 
 void Queue::print() const {
-    cout << "Fila = ";
-    for (int i = front; i < back ; i++) {
-        cout << structure[i % MAX_ITEMS];
+    NodeType* tempPtr = front;
+    while (tempPtr != NULL)
+    {
+        cout << tempPtr -> info;
+        tempPtr = tempPtr -> next;
     }
     cout << endl;
 }

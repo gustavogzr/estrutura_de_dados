@@ -14,6 +14,7 @@ int main() {
         queue.enqueue(character);
         cin.get(character);
     }
+    queue.print();
     while (!queue.isEmpty()) 
     {
         queueChar = queue.dequeue();
