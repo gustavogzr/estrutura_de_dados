@@ -1,4 +1,4 @@
-#include <hash.h>
+#include "hash.h"
 #include <iostream>
 using namespace std;
 
@@ -19,7 +19,7 @@ bool Hash::getLength() const {
 void Hash::retrieveItem(Aluno& aluno, bool& found) {
     int location = getHash(aluno);
     Aluno aux = structure[location];
-    if (aluno.getRA() != aux.getRA()) {
+    if (aluno.getRa() != aux.getRa()) {
         found = false;
     } else {
         found = true;
@@ -40,10 +40,10 @@ void Hash::print() {
     for (int i = 0; i < max_items; i++)
     {
         cout << i << ":" <<
-            structure[i].getRA() << ", " <<
+            structure[i].getRa() << ", " <<
             structure[i].getNome() << endl;
     }    
 }
 int Hash::getHash(Aluno aluno) {
-    return aluno.getRA() % max_items;
+    return aluno.getRa() % max_items;
 }
