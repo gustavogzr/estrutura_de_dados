@@ -2,6 +2,12 @@
 código para compilar o programa:
 g++ hash_aplicacao.cpp Aluno.cpp Hash.cpp -o hash_app1
 .\hash_app1
+
+OU
+
+g++ hash_aplicacao.cpp Aluno.cpp Hash_Teste_Linear.cpp -o hash_app2
+.\hash_app2
+
 */
 
 #include "hash.h"
