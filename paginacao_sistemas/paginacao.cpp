@@ -44,4 +44,5 @@ int main() {
         printf("%d frame [content:%c",j+1,RAM[j].contentRAM);
         printf(" BV:%d]\n",RAM[i].bv);
     }
+    return(0);
 }
